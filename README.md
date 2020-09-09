@@ -1,5 +1,4 @@
 # capstone-project-3900capstone
-capstone-project-3900capstone created by GitHub Classroom
 
 ## Overview
 Our team has worked on creating a centralised platform for UNSW students to easily and securely buy second-handed textbooks. For users, in addition to purchasing textbooks, our website also provides personalised recommendations based on their major that they have provided us. For admins, we provide analytics which will help them when managing stocks.
