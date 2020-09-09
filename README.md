@@ -8,3 +8,20 @@ Our team's common goal is to create a second-hand book trading platform belongin
 
 ## Design
 To design the platform, we split the work to front end and back end. Firstly, for the front end, our team decided to use pure html, css and javascript and use bootstrap framework to make our website much better. Secondly, for the backend, our team decided to use Springboot, which is a Java framework. The next step is to choose the sql engine and design the tables of the database and the relationship among sql tables. Our team uses InnoDB of Mysql to be the SQL engine. Then our team needs to combine the back end and front end, which is implemented by Thymeleaf, a model engine that can be used in Springboot. After that, the programming environment needs to be set up. Our team uses Intellij IDEA to be our IDE and set the environment inside, which uses maven to manage the project.
+
+## Main Functionalities
+- User authentication
+  - registration
+  - login
+  - update profile
+  
+ - User
+    - textbook recommendation
+   - book listing/searching/filtering
+   - cart
+   - payment
+   - feedback
+  
+ - Admin
+   - Analytics
+   - Inventory management
