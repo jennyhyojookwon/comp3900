@@ -1,0 +1,328 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" th:href="@{ite.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.png}">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/css/gijgo.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css}">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- <link rel="stylesheet" th:href="@{ss/responsive.css}"> -->
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a th:href="@{ttps://browsehappy.com/}">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- header-start -->
+<header>
+    <div class="header-area ">
+        <div id="sticky-header" class="main-header-area">
+            <div class="container-fluid ">
+                <div class="header_bottom_border">
+                    <div class="row align-items-center justify-content-end">
+
+                        <div class="col-xl-7 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+
+
+                                        <li><a th:href="@{/main}">Home</a></li>
+                                        <li shiro:hasPermission="user:normal"><a th:href="@{/listings}">Listings</a></li>
+
+                                        <li shiro:hasPermission="user:admin"><a th:href="@{/analytics}">Analytics</a></li>
+
+                                        <li shiro:hasPermission="user:normal"><a th:href="@{/cart}">My Cart</a></li>
+
+                                        <li><a href="" >profile <i class="ti-angle-down"></i></a >
+                                            <ul class="submenu">
+
+                                                <li><a th:href="@{/changePwdPage}">change password</a ></li>
+                                                <li><a th:href="@{/profile}">update profile</a ></li>
+                                            </ul>
+                                        </li>
+
+                                        <li shiro:hasPermission="user:normal"><a th:href="@{/feedback.html}">FeedBack</a></li>
+
+                                        <li shiro:hasPermission="user:admin">
+                                            <a href="" >manage book <i class="ti-angle-down"></i></a >
+                                            <ul class="submenu">
+
+                                                <li><a th:href="@{/add.html}">add book</a ></li>
+                                                <li><a th:href="@{/updateBookPage}">update book</a ></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="Appointment">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a th:href="@{/logout}">Sign Out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header-end -->
+<div class="bradcam_area bradcam_bg_2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Payment</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="whole-wrap">
+    <div class="container box_1170">
+        <div class="section-top-border">
+            <!--/*@thymesVar id="list" type="List<Cart>"*/-->
+            <div th:switch="${list}">
+                <div>
+                    <div th:case="*">
+                        <div class="row">
+                            <div class="col-75">
+                                <div class="container">
+                                    <form th:action="@{/payment}" method="post">
+                                        <div th:if="${message}" style="background-color: #e1f7e7; padding: 10px; border-right: 3px;">
+                                            <table style="width: 1100px">
+                                                <tr th:if="${message == 'some'}">
+                                                    <td>
+                                                        Some books are currently unavailable, would you like to proceed with the rest?
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <a th:href="@{/onlyAvailable}" class="genric-btn info radius">Yes</a>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/cart}" class="genric-btn danger radius">No</a>
+                                                    </td>
+                                                </tr>
+                                                <tr th:if="${message == 'all'}">
+                                                    <td>
+                                                        Books in your order are currently out of stock, we are sorry for the inconvenience!
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        <a th:href="@{/cart}" class="genric-btn info radius">Ok</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-50">
+                                                <h3>Billing Address</h3>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required oninvalid="this.setCustomValidity('Enter full name here')"
+                                                            oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                        <td>
+                                                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="email" name="email" placeholder="john@example.com" required oninvalid="this.setCustomValidity('Enter a valid email here, ex@abc.xyz')"
+                                                                   oninput="this.setCustomValidity('')" pattern="\w+[@].+[.].+">
+                                                        </td>
+                                                        <td>
+                                                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required oninvalid="this.setCustomValidity('Enter address here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="city" name="city" placeholder="New York" required oninvalid="this.setCustomValidity('Enter city here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                        <td>
+                                                            <label for="state">State</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="state" name="state" placeholder="NY" required oninvalid="this.setCustomValidity('Enter state here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                        <td>
+                                                            <label for="zip">Zip</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="zip" name="zip" placeholder="10001" required oninvalid="this.setCustomValidity('Enter zip here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-50">-->
+<!--                                                        -->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-50">-->
+<!--                                                        -->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+
+                                            <div class="col-50">
+                                                <h3>Payment</h3>
+                                                <label>Accepted Cards</label>
+                                                <div class="icon-container">
+                                                    <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                                    <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                                </div>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="cname">Name on Card</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="cname" name="cardname" placeholder="John More Doe" required oninvalid="this.setCustomValidity('Enter name here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                        <td>
+                                                            <label for="ccnum">Credit card number</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required oninvalid="this.setCustomValidity('Enter card number here')"
+                                                                   oninput="this.setCustomValidity('')" pattern="^\d{4}[-]\d{4}[-]\d{4}[-]\d{4}$">
+                                                        </td>
+                                                        <td>
+                                                            <label for="expmonth">Exp Month</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="expmonth" name="expmonth" placeholder="September" required oninvalid="this.setCustomValidity('Enter expire month here')"
+                                                                   oninput="this.setCustomValidity('')">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="expyear">Exp Year</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="expyear" name="expyear" placeholder="2018" required oninvalid="this.setCustomValidity('Enter expire year here')"
+                                                                   oninput="this.setCustomValidity('')" pattern="^\d{4}$">
+                                                        </td>
+                                                        <td>
+                                                            <label for="cvv">CVV</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="cvv" name="cvv" placeholder="352" required oninvalid="this.setCustomValidity('Enter CVV here')"
+                                                                   oninput="this.setCustomValidity('')" pattern="^\d{3}$">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-50">-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-50">-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+
+                                        </div>
+                                        <label>
+                                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                                        </label>
+                                        <!-- checkout button -->
+
+<!--                                        <input type="submit" value="Continue to checkout" class="btn">-->
+                                        <button class="genric-btn info radius" style="width:111.25px; float:right">Checkout</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="col-25">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- link that opens popup -->
+<!-- JS here -->
+<script src="js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/isotope.pkgd.min.js"></script>
+<script src="js/ajax-form.js"></script>
+<script src="js/waypoints.min.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/scrollIt.js"></script>
+<script src="js/jquery.scrollUp.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/nice-select.min.js"></script>
+<script src="js/jquery.slicknav.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/plugins.js"></script>
+<!-- <script src="js/gijgo.min.js"></script> -->
+<script src="js/slick.min.js"></script>
+
+
+
+<!--contact js-->
+<script src="js/contact.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/mail-script.js"></script>
+
+
+<script src="js/main.js"></script>
+</body>
+
+</html>
